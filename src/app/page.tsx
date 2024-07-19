@@ -1,113 +1,113 @@
-import Image from "next/image";
+import React from 'react';
+import Watchlist from '@/components/common/Watchlist';
+import GlobalMarketCapChart from '../components/homepage/GlobalMarketCapChart';
+import PublicCompaniesHoldings from '../components/homepage/PublicCompaniesHoldings';
 
-export default function Home() {
+const data = [
+  {
+    id: 'bitcoin',
+    name: 'Bitcoin',
+    image: 'https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400',
+    current_price: 63910,
+    price_change_percentage_24h: 5.2,
+    market_cap: 1200000000,
+  },
+  {
+    id: 'ethereum',
+    name: 'Ethereum',
+    image: 'https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628',
+    current_price: 3395.5,
+    price_change_percentage_24h: 3.1,
+    market_cap: 500000000,
+  },
+  {
+    id: 'tether',
+    name: 'Tether',
+    image: 'https://coin-images.coingecko.com/coins/images/325/large/Tether.png?1696501661',
+    current_price: 0.999947,
+    price_change_percentage_24h: 0.0,
+    market_cap: 60000000,
+  },
+  {
+    id: 'binancecoin',
+    name: 'BNB',
+    image: 'https://coin-images.coingecko.com/coins/images/825/large/bnb-icon2_2x.png?1696501970',
+    current_price: 569.87,
+    price_change_percentage_24h: 2.8,
+    market_cap: 80000000,
+  },
+  {
+    id: 'solana',
+    name: 'Solana',
+    image: 'https://coin-images.coingecko.com/coins/images/4128/large/solana.png?1718769756',
+    current_price: 161.69,
+    price_change_percentage_24h: 4.5,
+    market_cap: 30000000,
+  },
+  {
+    id: 'usd-coin',
+    name: 'USDC',
+    image: 'https://coin-images.coingecko.com/coins/images/6319/large/usdc.png?1696506694',
+    current_price: 1.001,
+    price_change_percentage_24h: 0.1,
+    market_cap: 40000000,
+  },
+  {
+    id: 'staked-ether',
+    name: 'Lido Staked Ether',
+    image: 'https://coin-images.coingecko.com/coins/images/13442/large/steth_logo.png?1696513206',
+    current_price: 3394.85,
+    price_change_percentage_24h: 3.2,
+    market_cap: 45000000,
+  },
+  {
+    id: 'ripple',
+    name: 'XRP',
+    image: 'https://coin-images.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png?1696501442',
+    current_price: 0.545641,
+    price_change_percentage_24h: 1.7,
+    market_cap: 50000000,
+  },
+  {
+    id: 'the-open-network',
+    name: 'Toncoin',
+    image: 'https://coin-images.coingecko.com/coins/images/17980/large/ton_symbol.png?1696517498',
+    current_price: 7.3,
+    price_change_percentage_24h: 2.3,
+    market_cap: 35000000,
+  },
+  {
+    id: 'dogecoin',
+    name: 'Dogecoin',
+    image: 'https://coin-images.coingecko.com/coins/images/5/large/dogecoin.png?1696501409',
+    current_price: 0.118421,
+    price_change_percentage_24h: 3.9,
+    market_cap: 70000000,
+  },
+  {
+    id: 'cardano',
+    name: 'Cardano',
+    image: 'https://coin-images.coingecko.com/coins/images/975/large/cardano.png?1696502090',
+    current_price: 0.41817,
+    price_change_percentage_24h: 2.5,
+    market_cap: 60000000,
+  },
+];
+
+export default function HomePage() {
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="container mx-auto">
+      <main className="p-4 flex flex-col lg:flex-row">
+        <div className="w-full lg:w-[80%] mb-8 lg:mb-0 lg:mr-8 flex flex-col space-y-8">
+          <GlobalMarketCapChart />
+          <Watchlist coins={data} />
         </div>
-      </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+        <div className="w-full lg:w-[28%] space-y-8">
+          <Watchlist coins={data} />
+          <Watchlist coins={data} />
+        </div>
+      </main>
+    </div>
   );
 }
