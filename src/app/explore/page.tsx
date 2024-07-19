@@ -5,15 +5,18 @@ import CoinList from './CoinList';
 import Pagination from './Pagination';
 import { Coin } from '../explore/CoinList';
 import Watchlist from '../../components/common/Watchlist';
+import Loader from '../../components/common/Loader';
 const ExplorePage = () => {
     const [cryptoData, setCryptoData] = useState<Coin[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [activeFilter, setActiveFilter] = useState('all');
     const itemsPerPage = 20;
+    const [loader, setLoader] = useState(true);
 
     useEffect(() => {
         axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false`)
             .then(response => {
+                setLoader(false);
                 setCryptoData(response.data);
             })
             .catch(error => {
@@ -49,29 +52,33 @@ const ExplorePage = () => {
 
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-    return (
-        <div className="flex mt-3">
-            <div className="flex flex-col h-screen">
-                <div className="container mx-auto px-2 py-2 flex-1">
-                    <CoinList coins={currentItems} activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
-                    <div className="mt-8">
-                        <Pagination
-                            itemsPerPage={itemsPerPage}
-                            totalItems={filterData().length}
-                            paginate={paginate}
-                            currentPage={currentPage}
-                        />
+    return (<>
+        {loader === true ? <div className="flex justify-center items-center h-screen">
+            <Loader />
+        </div> :
+            <div className="flex mt-3">
+                <div className="flex flex-col h-screen">
+                    <div className="container mx-auto px-2 py-2 flex-1">
+                        <CoinList coins={currentItems} activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
+                        <div className="mt-8">
+                            <Pagination
+                                itemsPerPage={itemsPerPage}
+                                totalItems={filterData().length}
+                                paginate={paginate}
+                                currentPage={currentPage}
+                            />
+                        </div>
                     </div>
+
                 </div>
 
-            </div>
+                <div className="lg:w-[28%] space-y-8 mt-8">
+                    <Watchlist coins={currentItems} />
+                    <Watchlist coins={currentItems} />
+                </div>
 
-            <div className="lg:w-[28%] space-y-8 mt-8">
-                <Watchlist coins={currentItems} />
-                <Watchlist coins={currentItems} />
-            </div>
-
-        </div>
+            </div>}
+    </>
     );
 };
 

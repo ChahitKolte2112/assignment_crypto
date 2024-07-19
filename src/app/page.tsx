@@ -1,8 +1,9 @@
-import React from 'react';
+'use client';
+import React, { useEffect } from 'react';
 import Watchlist from '@/components/common/Watchlist';
 import GlobalMarketCapChart from '../components/homepage/GlobalMarketCapChart';
 import PublicCompaniesHoldings from '../components/homepage/PublicCompaniesHoldings';
-
+import Loader from '@/components/common/Loader';
 const data = [
   {
     id: 'bitcoin',
@@ -76,38 +77,34 @@ const data = [
     price_change_percentage_24h: 2.3,
     market_cap: 35000000,
   },
-  {
-    id: 'dogecoin',
-    name: 'Dogecoin',
-    image: 'https://coin-images.coingecko.com/coins/images/5/large/dogecoin.png?1696501409',
-    current_price: 0.118421,
-    price_change_percentage_24h: 3.9,
-    market_cap: 70000000,
-  },
-  {
-    id: 'cardano',
-    name: 'Cardano',
-    image: 'https://coin-images.coingecko.com/coins/images/975/large/cardano.png?1696502090',
-    current_price: 0.41817,
-    price_change_percentage_24h: 2.5,
-    market_cap: 60000000,
-  },
+
 ];
 
 export default function HomePage() {
+  const [loader, setLoader] = React.useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false);
+    }, 1000);
 
-  return (
-    <div className="container mx-auto">
-      <main className="p-4 flex flex-col lg:flex-row">
-        <div className="w-full lg:w-[80%] mb-8 lg:mb-0 lg:mr-8 flex flex-col space-y-8">
-          <GlobalMarketCapChart />
-          <Watchlist coins={data} />
-        </div>
-        <div className="w-full lg:w-[28%] space-y-8">
-          <Watchlist coins={data} />
-          <Watchlist coins={data} />
-        </div>
-      </main>
-    </div>
+
+  }, []);
+
+  return (<>
+    {loader === true ? <div className="flex justify-center items-center h-screen">
+      <Loader /></div> :
+      <div className="container mx-auto">
+        <main className="p-4 flex flex-col lg:flex-row">
+          <div className="w-full lg:w-[80%] mb-8 lg:mb-0 lg:mr-8 flex flex-col space-y-8">
+            <GlobalMarketCapChart />
+            <Watchlist coins={data} />
+          </div>
+          <div className="w-full lg:w-[28%] space-y-8">
+            <Watchlist coins={data} />
+            <Watchlist coins={data} />
+          </div>
+        </main>
+      </div>}
+  </>
   );
 }
